@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div style="width :25%; margin:auto;border: 1px;background:#4286f4">
+<div style="padding: 10px;">
+First Operand :<input type="text" id="operand1"><br><br>
+Operator :<input type="text" id="operator"> <br><br>
+Second Operand :<input type="text" id="operand2"><br><br>
+<button onclick="calculate();">Calculate</button>
+Result :<label id="result"></label>
+</div>
+</div>
+
+
+<script type="text/javascript">
+	function calculate(){
+		var operand1Dec =toDecimal(document.getElementById('operand1').value);
+		var operand2Dec =toDecimal(document.getElementById('operand2').value);
+		var operator =document.getElementById('operator').value;
+		console.log(operand1Dec + " "+operand2Dec +" "+operator);
+		switch(operator){
+			case '+': document.getElementById('result').innerHTML=toRoman(operand1Dec+operand2Dec);break;
+			case '-': document.getElementById('result').innerHTML=toRoman(operand1Dec-operand2Dec);break;
+			case '*': document.getElementById('result').innerHTML=toRoman(operand1Dec*operand2Dec);break;
+			case '/': document.getElementById('result').innerHTML=toRoman(operand1Dec/operand2Dec);break;
+		}
+
+			
+	}
+
+	function toDecimal(romanNumerals){
+		var resultNumber=0;
+		var decimalNumberArray=[];
+		var romanNumeralsSplit=romanNumerals.split("");
+		for(j=0;j<romanNumeralsSplit.length;j++){
+			switch(romanNumeralsSplit[j]){
+				case 'I':decimalNumberArray.push(1);
+						break;
+				case 'V':decimalNumberArray.push(5);
+						break;
+				case 'X':decimalNumberArray.push(10);
+						break;
+				case 'L':decimalNumberArray.push(50);
+						break;
+				case 'C':decimalNumberArray.push(100);
+						break;
+				case 'D':decimalNumberArray.push(500);
+						break;
+				case 'M':decimalNumberArray.push(1000);
+						break;
+				case 'i':decimalNumberArray.push(1);
+						break;
+				case 'v':decimalNumberArray.push(5);
+						break;
+				case 'x':decimalNumberArray.push(10);
+						break;
+				case 'l':decimalNumberArray.push(50);
+						break;
+				case 'c':decimalNumberArray.push(100);
+						break;
+				case 'd':decimalNumberArray.push(500);
+						break;
+				case 'm':decimalNumberArray.push(1000);
+						break;
+				default:break;
+			}
+		}
+
+		 for(i=0;i<decimalNumberArray.length;){
+		 	 if(i==decimalNumberArray.length-1){
+				resultNumber=resultNumber+decimalNumberArray[i];
+				break;
+			}else{
+				if(decimalNumberArray[i]>=decimalNumberArray[i+1]){
+				resultNumber=resultNumber+(decimalNumberArray[i]);
+				i=i+1;
+			}else{
+				resultNumber=resultNumber+(decimalNumberArray[i+1]-decimalNumberArray[i]);
+				i=i+2;
+			}
+		  }
+		}
+		return resultNumber;
+	}
+	function toRoman(decimal){
+  		var romanKeyValue = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1};
+      	var roman = '';
+    	var i;
+  		for ( i in romanKeyValue) {
+    		while ( decimal >= romanKeyValue[i]) {
+      		roman += i;
+      		decimal -= romanKeyValue[i];
+    }
+  }
+  return roman;
+
+	}
+</script>
+</body>
+</html>
